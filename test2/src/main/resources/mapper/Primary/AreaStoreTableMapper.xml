@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test2.Mapper.Primary.AreaStoreTableMapper">
+
+
+    <insert id="insertNewAreaStore">
+        insert into `area`
+        values(#{id},#{name},#{risk_level},#{area_level},#{children},#{father_id})
+    </insert>
+
+
+    <select id="getAreaById" resultType="com.example.test2.POJO.AreaStoreTable">
+        select *
+        from `area`
+        where `id`=#{area_id}
+    </select>
+
+    <select id="isExistArea" resultType="java.lang.Integer">
+        select count(*)
+        from `area`
+        where `id`=#{area_id}
+        limit 1
+    </select>
+
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test2.Mapper.Primary.placeForNormalMapper">
+
+<!--    根据place_id查询 某个place
+
+返回联系人id (contact_id)
+联系人姓名 (contact_name)
+场所名(place_name)
+最小的地区id  (area_id)
+详细地址 (address)：
+场所类型(place_type):
+
+-->
+    <select id="getPlaceById" resultType="java.util.HashMap">
+        select  *
+        from    (select `real_name`'contact_name',`id` 'contact_id'
+                from `personal_information`
+                where `id` = (select `contact_id` from `place_for_normal`
+                              where `id`=1)) AS `A`,
+                (select `name` 'place_type'
+                 from `place_type`
+                 where `id` = (select `place_type_id`
+                               from `place_for_normal`
+                               where `id`=1)) AS `B` ,
+                 (select `name` 'place_name',`area_id`,`address`
+                 from `place_for_normal`
+                 where `id`=1) AS `C`
+    </select>
+</mapper>
