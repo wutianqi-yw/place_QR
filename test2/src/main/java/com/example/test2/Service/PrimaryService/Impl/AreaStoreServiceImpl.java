@@ -6,6 +6,9 @@ import com.example.test2.Service.PrimaryService.AreaStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Service("AreaStoreService")
 public class AreaStoreServiceImpl implements AreaStoreService {
 
@@ -25,12 +28,15 @@ public class AreaStoreServiceImpl implements AreaStoreService {
     }
 
 
-
     public Area convertToArea(Long area_id){
         return new ConvertToAreaHandler(area_id, areaStoreTableMapper).getRes();
     }
 
 
+
+    /**
+     * 内部工具类，将存储结构转换为Area
+     */
     static class ConvertToAreaHandler{
 
         private Long area_id;
@@ -41,23 +47,23 @@ public class AreaStoreServiceImpl implements AreaStoreService {
             this.areaStoreTableMapper = areaStoreTableMapper;
         }
 
-        public Area recursion(Long area_id){
+        public Area recursion(Long area_id, Area father){
 
             AreaStoreTable store = areaStoreTableMapper.getAreaById(area_id);
 
             Long id = store.getId();
             String name = store.getName();
-            Long father_id = store.getFather_id();
             Integer area_level = store.getArea_level();
             Integer risk_level = store.getRisk_level();
 
-            Area cur = new Area(id, name, risk_level, area_level, null, father_id);
+            Area cur = new Area(id, name, risk_level, area_level, null, father);
+
 
             if (store.getChildren()!=null && store.getChildren().length()>0){
                 Long[] childIds = Area.convertChildStringToIdArray(store.getChildren());
                 Area[] ch = new Area[childIds.length];
                 for (int i = 0; i <ch.length; i++) {
-                    ch[i] = recursion(childIds[i]);
+                    ch[i] = recursion(childIds[i],cur);
                 }
                 cur.setChildren(ch);
             }
@@ -66,7 +72,7 @@ public class AreaStoreServiceImpl implements AreaStoreService {
 
 
         public Area getRes(){
-            return recursion(area_id);
+            return recursion(area_id,null);
         }
 
 
@@ -74,7 +80,10 @@ public class AreaStoreServiceImpl implements AreaStoreService {
 
     }
 
-
+    /**
+     *
+     * 内部工具类，
+     */
     static class convertToAreaStoreHandler {
         private AreaStoreTableMapper storeTableMapper;
         private Area menu;
@@ -91,7 +100,7 @@ public class AreaStoreServiceImpl implements AreaStoreService {
             AreaStoreTable store = new AreaStoreTable();
             store.setId(area.getId());
             store.setArea_level(area.getArea_level());
-            store.setFather_id(area.getFather_id());
+            store.setFather_id(area.getFather().getId());
             store.setName(area.getName());
             store.setRisk_level(area.getRisk_level());
 
@@ -135,4 +144,34 @@ public class AreaStoreServiceImpl implements AreaStoreService {
     }
 
 
+    static class travelArea{
+        List<Area> res;
+        Area root;
+
+        public travelArea(List<Area> res, Area root) {
+            this.res = res;
+            this.root = root;
+            res = new LinkedList<>();
+            recursion(root);
+        }
+
+        public String getStringTravel(){
+            return res.toString();
+        }
+
+        public List<Area> getListTravel(){
+            return res;
+        }
+
+        private void recursion(Area root){
+            if (root==null)return;
+            res.add(root);
+            Area[] children = root.getChildren();
+            if (children!=null){
+                for (int i = 0; i < children.length; i++) {
+                    recursion(children[i]);
+                }
+            }
+        }
+    }
 }

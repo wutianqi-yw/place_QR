@@ -1,5 +1,3 @@
-
-
 primary:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,9 +13,6 @@ secondary:
     username: root
     password: zxc,./123
 
-#  redis:
-#    port: 6379
-#    url: 120.79.189.55
 
 #mybatis:
 #  type-aliases-package: com.example.test2.POJO
@@ -33,4 +28,8 @@ server:
   port: 8079
   servlet:
     context-path:
-
+spring:
+  redis:
+    port: 6300
+    host: 120.79.189.55
+    password: zxc,./123

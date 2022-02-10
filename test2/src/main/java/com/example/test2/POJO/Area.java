@@ -14,7 +14,7 @@ public class Area {
     private Integer risk_level;
     private Integer area_level;
     private Area[] children;
-    private Long father_id;
+    private Area father;
 
 
     static public Long[] convertChildStringToIdArray(String s){
