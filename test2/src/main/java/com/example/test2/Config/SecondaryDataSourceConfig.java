@@ -60,7 +60,4 @@ public class SecondaryDataSourceConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-
-
-
 }
