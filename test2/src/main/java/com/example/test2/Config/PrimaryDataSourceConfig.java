@@ -1,6 +1,7 @@
 package com.example.test2.Config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.example.test2.Interceptor.LoginInterceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -11,13 +12,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 
 @MapperScan(basePackages = PrimaryDataSourceConfig.PACKAGE ,sqlSessionFactoryRef = "primarySqlSessionFactory")
-public class PrimaryDataSourceConfig {
+public class PrimaryDataSourceConfig implements WebMvcConfigurer {
 
     static final String PACKAGE = "com.example.test2.Mapper.Primary";
 
@@ -62,5 +67,14 @@ public class PrimaryDataSourceConfig {
         sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(MAPPER_LOCATION));
         return sqlSessionFactory.getObject();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        List<String> excludePath=new ArrayList<>();
+        excludePath.add("/Admin/login");
+        registry.addInterceptor(new LoginInterceptor())
+                .excludePathPatterns(excludePath)
+                .addPathPatterns("/**");
     }
 }
