@@ -2,10 +2,11 @@ package com.example.test2.POJO;
 
 import lombok.*;
 
+import java.util.Arrays;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
 public class Area {
 
@@ -25,5 +26,17 @@ public class Area {
             res[i] = (long) Integer.parseInt(split[i]);
         }
         return res;
+    }
+
+    @Override
+    public String toString() {
+        return "Area{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", risk_level=" + risk_level +
+                ", area_level=" + area_level +
+                ", children=" + Arrays.toString(children) +
+                ", father=" + father +
+                '}';
     }
 }

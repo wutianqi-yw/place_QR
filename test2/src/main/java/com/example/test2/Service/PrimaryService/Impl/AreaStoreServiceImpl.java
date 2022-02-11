@@ -27,10 +27,25 @@ public class AreaStoreServiceImpl implements AreaStoreService {
         return areaStoreTableMapper.isExistArea(area_id)==1;
     }
 
+    @Override
+    public int AreaConvertToStore(Area area) {
+        convertToAreaStoreHandler convertToAreaStoreHandler = new convertToAreaStoreHandler(areaStoreTableMapper, area);
+        int res = convertToAreaStoreHandler.getRes();
+        return res;
+    }
+
+    @Override
+    public List<Area> travelArea(Area area) {
+        travelArea travelArea = new travelArea(area);
+        List<Area> listTravel = travelArea.getListTravel();
+        return listTravel;
+    }
+
 
     public Area convertToArea(Long area_id){
         return new ConvertToAreaHandler(area_id, areaStoreTableMapper).getRes();
     }
+
 
 
 
@@ -100,7 +115,9 @@ public class AreaStoreServiceImpl implements AreaStoreService {
             AreaStoreTable store = new AreaStoreTable();
             store.setId(area.getId());
             store.setArea_level(area.getArea_level());
-            store.setFather_id(area.getFather().getId());
+            if (area.getFather()!=null) {
+                store.setFather_id(area.getFather().getId());
+            }
             store.setName(area.getName());
             store.setRisk_level(area.getRisk_level());
 
@@ -117,11 +134,12 @@ public class AreaStoreServiceImpl implements AreaStoreService {
 
             StringBuilder childStr = new StringBuilder();
             for (int i = 0; i < children.length; i++) {
-                childStr.append(recursion(children[i]));
+                Long son_id = recursion(children[i]);
+                childStr.append(son_id);
                 childStr.append(",");
             }
-            childStr.deleteCharAt(childStr.length()-1);
-            store.setChildren(childStr.toString());
+            StringBuilder stringBuilder = childStr.deleteCharAt(childStr.length() - 1);
+            store.setChildren(stringBuilder.toString());
             if (checkSafe(area.getId())){ //数据库中不存在
                 int i = storeTableMapper.insertNewAreaStore(store); //插入当前节点
                 if (i == 1) successfulTimes++;
@@ -148,8 +166,7 @@ public class AreaStoreServiceImpl implements AreaStoreService {
         List<Area> res;
         Area root;
 
-        public travelArea(List<Area> res, Area root) {
-            this.res = res;
+        public travelArea(Area root) {
             this.root = root;
             res = new LinkedList<>();
             recursion(root);

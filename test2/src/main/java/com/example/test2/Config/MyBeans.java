@@ -1,5 +1,6 @@
 package com.example.test2.Config;
 
+import com.example.test2.POJO.Area;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +41,16 @@ public class MyBeans {
         template.setHashValueSerializer(jackson2JsonRedisSerializer);
         template.setEnableTransactionSupport(true);
         return template;
+    }
+
+    @Bean("myArea")
+    public Area area(){
+
+        Area a1 = Area.builder().id(16L).area_level(1).father(null).risk_level(1).children(null).name("a1").build();
+        Area a2 = Area.builder().id(17L).area_level(2).father(a1).risk_level(1).children(null).name("a2").build();
+        Area a3 = Area.builder().id(18L).area_level(3).father(a1).risk_level(1).children(null).name("a3").build();
+        a1.setChildren(new Area[]{a2,a3});
+        return a1;
     }
 
 }
