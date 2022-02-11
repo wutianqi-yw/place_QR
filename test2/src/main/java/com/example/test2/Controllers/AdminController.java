@@ -4,10 +4,8 @@ import com.example.test2.POJO.Admin;
 import com.example.test2.Service.PrimaryService.AdminService;
 import com.example.test2.Util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -36,6 +34,13 @@ public class AdminController extends BaseController{
     public JsonResult<Void> changePassword(String newPassword,String oldPassword,HttpSession session){
         Long id= (Long) session.getAttribute("id");
         adminService.changePassword(id, newPassword, oldPassword);
+        return new JsonResult<>(OK);
+    }
+
+    @RequestMapping(value = "/removeAdminById")
+    public JsonResult<Void> removeAdminById(HttpSession session){
+        Long id= (Long) session.getAttribute("id");
+        adminService.removeAdminById(id);
         return new JsonResult<>(OK);
     }
 }

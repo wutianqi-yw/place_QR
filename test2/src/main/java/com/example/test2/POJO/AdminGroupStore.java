@@ -7,13 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorityStoreTable {
+public class AdminGroupStore {
 
     private Long id;
-    private String name;
-    private String url;
-    private String icon;
-    private AuthorityStoreTable[] children;
-    private Integer type;
+    private String group_name;
+    private String authority_collection;
+    private String comment;
 
 }

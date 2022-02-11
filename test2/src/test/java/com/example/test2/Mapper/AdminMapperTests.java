@@ -38,4 +38,9 @@ public class AdminMapperTests {
     public void selectAdminById(){
         System.out.println(adminMapper.selectAdminById(1L));
     }
+
+    @Test
+    public void deleteAdminById(){
+        System.out.println(adminMapper.deleteAdminById(2L));
+    }
 }

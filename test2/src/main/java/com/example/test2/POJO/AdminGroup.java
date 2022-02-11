@@ -11,7 +11,7 @@ public class AdminGroup {
 
     private Long id;
     private String group_name;
-    private String authority_collection;
+    private AuthorityStoreTable[] authority_collection;
     private String comment;
 
 }
