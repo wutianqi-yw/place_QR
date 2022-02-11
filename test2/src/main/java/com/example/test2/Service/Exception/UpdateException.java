@@ -1,5 +1,6 @@
 package com.example.test2.Service.Exception;
 
+//更新异常
 public class UpdateException extends ServiceException{
     public UpdateException() {
         super();

@@ -1,5 +1,6 @@
 package com.example.test2.Service.Exception;
 
+//密码错误异常
 public class PasswordNotMatchException extends ServiceException{
     public PasswordNotMatchException() {
         super();
