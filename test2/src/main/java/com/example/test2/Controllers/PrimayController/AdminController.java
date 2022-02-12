@@ -1,5 +1,6 @@
-package com.example.test2.Controllers;
+package com.example.test2.Controllers.PrimayController;
 
+import com.example.test2.Controllers.BaseController;
 import com.example.test2.POJO.Admin;
 import com.example.test2.Service.PrimaryService.AdminService;
 import com.example.test2.Util.JsonResult;
@@ -12,10 +13,13 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping(value = "/Admin")
-public class AdminController extends BaseController{
+public class AdminController extends BaseController {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @RequestMapping(value = "/login")
     public JsonResult<Admin> login(String username, String password, HttpSession session){

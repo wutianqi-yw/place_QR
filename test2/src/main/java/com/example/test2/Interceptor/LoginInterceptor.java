@@ -1,5 +1,7 @@
 package com.example.test2.Interceptor;
 
+import com.example.test2.Util.JsonResult;
+import com.google.gson.Gson;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,7 +13,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object obj=request.getSession().getAttribute("id");
         if(obj==null){
-            response.sendRedirect("");
+            Gson gson = new Gson();
+            JsonResult result = JsonResult.getInstance(200, "未登录", null);
+            response.getWriter().write(gson.toJson(result));
             return false;
         }
         return true;

@@ -11,6 +11,12 @@ public class JsonResult<T> {
     private String message;
     private T data;
 
+    public JsonResult(Integer state, String message, T data) {
+        this.state = state;
+        this.message = message;
+        this.data = data;
+    }
+
     public JsonResult(Throwable e){
         this.message=e.getMessage();
     }
@@ -18,6 +24,10 @@ public class JsonResult<T> {
     public JsonResult(Integer state,T data){
         this.state=state;
         this.data=data;
+    }
+
+    public static<T> JsonResult getInstance(Integer state, String message, T data){
+        return new JsonResult(state,message,data);
     }
 
     public JsonResult(Integer state){

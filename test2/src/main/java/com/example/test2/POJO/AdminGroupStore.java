@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminGroup {
+public class AdminGroupStore {
 
     private Long id;
     private String group_name;

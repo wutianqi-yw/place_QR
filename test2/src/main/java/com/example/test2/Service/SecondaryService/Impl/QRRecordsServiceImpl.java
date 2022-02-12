@@ -4,7 +4,7 @@ package com.example.test2.Service.SecondaryService.Impl;
 import com.example.test2.Mapper.secondary.QRRecordsMapper;
 import com.example.test2.POJO.QRRecords;
 import com.example.test2.Service.SecondaryService.QRRecordsService;
-import com.example.test2.Util.getTime;
+import com.example.test2.Util.Secondary.TimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,28 +13,33 @@ public class QRRecordsServiceImpl implements QRRecordsService {
 
 
     private QRRecordsMapper qrRecordsMapper ;
-    private getTime getTime;
+    private TimeFormat timeFormat;
 
     private final String TablePostFix = "_qr_records";
 
     @Autowired
-    public QRRecordsServiceImpl(QRRecordsMapper qrRecordsMapper,getTime getTime) {
-        this.getTime = getTime;
+    public QRRecordsServiceImpl(QRRecordsMapper qrRecordsMapper, TimeFormat TimeFormat) {
+        this.timeFormat = TimeFormat;
         this.qrRecordsMapper = qrRecordsMapper;
     }
 
     @Override
     public int createNewDateTable() {
 
-        String todayDateFormat = getTime.getTodayDateFormat();
+        String todayDateFormat = timeFormat.getTodayDateFormat();
         return qrRecordsMapper.createTableByDate(todayDateFormat+TablePostFix);
     }
 
     @Override
     public int insertNewQrRecord(QRRecords record) {
-        return qrRecordsMapper.insertNewQrRecord(getTime.getTodayDateFormat(),record);
+        return qrRecordsMapper.insertNewQrRecord(timeFormat.getTodayDateFormat(),record);
     }
 
+
+    @Override
+    public boolean checkExistTable(Integer y, Integer m, Integer d) {
+        return TimeFormat.checkExistTable(y,m,d);
+    }
 
 
 }

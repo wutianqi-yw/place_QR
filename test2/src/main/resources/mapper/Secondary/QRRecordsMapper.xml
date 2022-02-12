@@ -21,5 +21,12 @@
         primary key (`id`))
     </update>
 
+    <select id="selectPlaceIdTypeByUserid" resultType="java.util.HashMap">
+        select `place_id`,`place_type`,`timeMillis`
+        from ${dateFormat}
+        where `user_id`=#{userId}
+        order by `timeMillis`
+    </select>
+
 
 </mapper>

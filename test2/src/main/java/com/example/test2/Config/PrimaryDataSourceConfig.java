@@ -22,7 +22,7 @@ import java.util.List;
 @Configuration
 
 @MapperScan(basePackages = PrimaryDataSourceConfig.PACKAGE ,sqlSessionFactoryRef = "primarySqlSessionFactory")
-public class PrimaryDataSourceConfig implements WebMvcConfigurer {
+public class PrimaryDataSourceConfig  {
 
     static final String PACKAGE = "com.example.test2.Mapper.Primary";
 
@@ -69,12 +69,4 @@ public class PrimaryDataSourceConfig implements WebMvcConfigurer {
         return sqlSessionFactory.getObject();
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        List<String> excludePath=new ArrayList<>();
-        excludePath.add("/Admin/login");
-        registry.addInterceptor(new LoginInterceptor())
-                .excludePathPatterns(excludePath)
-                .addPathPatterns("/**");
-    }
 }

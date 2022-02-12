@@ -10,4 +10,14 @@ public interface QRRecordsService {
     public int insertNewQrRecord(QRRecords record);
 
 
+    /**
+     *
+     * 查询是否存在table。使用了当前系统时间。
+     *
+     * @param y 年
+     * @param m 月
+     * @param d 日
+     * @return
+     */
+    public boolean checkExistTable(Integer y,Integer m,Integer d);
 }
