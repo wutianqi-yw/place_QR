@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/AuthorityStoreTable")
+@RequestMapping(value = "/authorityStoreTable")
 public class AuthorityStoreTableController extends BaseController{
 
+    private final AuthorityStoreTableService authorityStoreTableService;
+
     @Autowired
-    private AuthorityStoreTableService authorityStoreTableService;
+    public AuthorityStoreTableController(AuthorityStoreTableService authorityStoreTableService) {
+        this.authorityStoreTableService = authorityStoreTableService;
+    }
 
     @PostMapping(value = "/addAuthorityStoreTable")
     public JsonResult<Void> addAuthorityStoreTable(AuthorityStoreTable authorityStoreTable){

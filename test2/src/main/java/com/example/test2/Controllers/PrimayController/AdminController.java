@@ -16,11 +16,15 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/Admin")
+@RequestMapping(value = "/admin")
 public class AdminController extends BaseController{
 
+    private final AdminService adminService;
+
     @Autowired
-    private AdminService adminService;
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @PostMapping(value = "/login")
     public JsonResult<HashMap<String,Admin>> login(String username, String password, HttpSession session){

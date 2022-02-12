@@ -17,11 +17,15 @@ import org.springframework.stereotype.Service;
 @Service(value = "AdminGroupService")
 public class AdminGroupServiceImpl implements AdminGroupService {
 
-    @Autowired
-    private AdminGroupMapper adminGroupMapper;
+    private final AdminGroupMapper adminGroupMapper;
+
+    private final AuthorityStoreTableMapper authorityStoreTableMapper;
 
     @Autowired
-    private AuthorityStoreTableMapper authorityStoreTableMapper;
+    public AdminGroupServiceImpl(AdminGroupMapper adminGroupMapper, AuthorityStoreTableMapper authorityStoreTableMapper) {
+        this.adminGroupMapper = adminGroupMapper;
+        this.authorityStoreTableMapper = authorityStoreTableMapper;
+    }
 
     @Override
     public void addAdminGroup(AdminGroupStore adminGroup) {

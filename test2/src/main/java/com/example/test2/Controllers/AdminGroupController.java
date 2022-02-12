@@ -17,11 +17,15 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping(value = "/AdminGroup")
+@RequestMapping(value = "/adminGroup")
 public class AdminGroupController extends BaseController{
 
+    private final AdminGroupService adminGroupService;
+
     @Autowired
-    private AdminGroupService adminGroupService;
+    public AdminGroupController(AdminGroupService adminGroupService) {
+        this.adminGroupService = adminGroupService;
+    }
 
     @PostMapping(value = "/addAdminGroup")
     public JsonResult<Void> addAdminGroup(AdminGroupStore adminGroupStore){

@@ -12,11 +12,15 @@ import org.springframework.stereotype.Service;
 @Service(value = "AdminService")
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    private AdminMapper adminMapper;
+    private final AdminMapper adminMapper;
+
+    private final AdminGroupMapper adminGroupMapper;
 
     @Autowired
-    private AdminGroupMapper adminGroupMapper;
+    public AdminServiceImpl(AdminMapper adminMapper, AdminGroupMapper adminGroupMapper) {
+        this.adminMapper = adminMapper;
+        this.adminGroupMapper = adminGroupMapper;
+    }
 
     @Override
     public void register(Admin admin) {
