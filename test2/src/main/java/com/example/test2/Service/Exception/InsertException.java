@@ -1,5 +1,6 @@
 package com.example.test2.Service.Exception;
 
+//插入异常
 public class InsertException extends ServiceException{
     public InsertException() {
         super();

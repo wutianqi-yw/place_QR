@@ -10,4 +10,5 @@ public interface AdminService {
 
     void changePassword(Long id,String newPassword,String oldPassword);
 
+    void removeAdminById(Long id);
 }

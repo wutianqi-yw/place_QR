@@ -1,5 +1,6 @@
 package com.example.test2.Service.Exception;
 
+//用户名没找到
 public class UserNotFoundException extends ServiceException{
     public UserNotFoundException() {
         super();

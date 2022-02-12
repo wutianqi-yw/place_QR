@@ -1,5 +1,6 @@
 package com.example.test2.Service.Exception;
 
+//业务层异常父类，所有业务层异常都继承他
 public class ServiceException extends RuntimeException{
     public ServiceException() {
         super();

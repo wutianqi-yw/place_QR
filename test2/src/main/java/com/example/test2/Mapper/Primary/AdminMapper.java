@@ -12,4 +12,6 @@ public interface AdminMapper {
     int updatePasswordById(@Param("id") Long id,@Param("password") String password);
 
     Admin selectAdminById(@Param("id") Long id);
+
+    int deleteAdminById(@Param("id") Long id);
 }

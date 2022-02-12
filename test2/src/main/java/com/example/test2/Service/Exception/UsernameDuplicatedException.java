@@ -1,5 +1,6 @@
 package com.example.test2.Service.Exception;
 
+//用户名被占用
 public class UsernameDuplicatedException extends ServiceException{
     public UsernameDuplicatedException() {
         super();

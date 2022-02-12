@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorityStoreTable {
+public class RiskReportRecord {
 
     private Long id;
-    private String name;
-    private String url;
-    private String icon;
-    private AuthorityStoreTable[] children;
+    private String apply_type;
+    private Long place_id;
     private Integer type;
+    private Long report_time;
+    private Long report_person_id;
+    private Integer report_state;
+    private String result;
 
 }

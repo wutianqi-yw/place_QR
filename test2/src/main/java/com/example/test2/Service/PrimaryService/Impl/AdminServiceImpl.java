@@ -1,7 +1,9 @@
 package com.example.test2.Service.PrimaryService.Impl;
 
+import com.example.test2.Mapper.Primary.AdminGroupMapper;
 import com.example.test2.Mapper.Primary.AdminMapper;
 import com.example.test2.POJO.Admin;
+import com.example.test2.POJO.AdminGroupStore;
 import com.example.test2.Service.Exception.*;
 import com.example.test2.Service.PrimaryService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,18 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private AdminGroupMapper adminGroupMapper;
+
     @Override
     public void register(Admin admin) {
         Admin temp=adminMapper.selectAdminByUsername(admin.getUsername());
         if(temp!=null){
             throw new UsernameDuplicatedException("用户名已被占用");
+        }
+        AdminGroupStore adminGroup =adminGroupMapper.selectAdminGroupById(admin.getGroup_id());
+        if(adminGroup==null){
+            throw new GroupDuplicatedException("分组数据不存在");
         }
         Integer rows=adminMapper.insertAdmin(admin);
         if(rows!=1){
@@ -49,6 +58,18 @@ public class AdminServiceImpl implements AdminService {
         Integer rows=adminMapper.updatePasswordById(id, newPassword);
         if(rows!=1){
             throw new UpdateException("更新数据未知错误");
+        }
+    }
+
+    @Override
+    public void removeAdminById(Long id) {
+        Admin temp=adminMapper.selectAdminById(id);
+        if(temp==null){
+            throw new UserNotFoundException("用户数据不存在");
+        }
+        int rows=adminMapper.deleteAdminById(id);
+        if(rows!=1){
+            throw new DeleteException("删除未知异常");
         }
     }
 }

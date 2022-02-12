@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test2.Mapper.Primary.AuthorityStoreTableMapper">
+
+    <insert id="insertAuthorityStoreTable" parameterType="com.example.test2.POJO.AuthorityStoreTableStore">
+        insert into authority_store_table(name,url,icon,children,type)
+               values (#{name},#{url},#{icon},#{children},#{type})
+    </insert>
+
+    <select id="selectAuthorityStoreTableById" resultType="com.example.test2.POJO.AuthorityStoreTableStore"
+            parameterType="java.lang.Long">
+        select id,name,url,icon,children,type from authority_store_table where id=#{id}
+    </select>
+
+</mapper>

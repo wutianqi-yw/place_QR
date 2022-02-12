@@ -33,4 +33,9 @@ public class AdminServiceTests {
     public void changePassword(){
         adminService.changePassword(1L,"123","123456");
     }
+
+    @Test
+    public void removeAdminById(){
+        adminService.removeAdminById(3L);
+    }
 }
