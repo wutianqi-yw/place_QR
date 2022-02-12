@@ -1,12 +1,12 @@
 package com.example.test2.Mapper.Primary;
 
-import com.example.test2.POJO.AuthorityStoreTableStore;
+import com.example.test2.POJO.AuthorityStoreTable;
 import org.apache.ibatis.annotations.Param;
 
 public interface AuthorityStoreTableMapper {
 
-    int insertAuthorityStoreTable(AuthorityStoreTableStore authorityStoreTableStore);
+    int insertAuthorityStoreTable(AuthorityStoreTable authorityStoreTable);
 
-    AuthorityStoreTableStore selectAuthorityStoreTableById(@Param("id") Long id);
+    AuthorityStoreTable selectAuthorityStoreTableById(@Param("id") Long id);
 
 }

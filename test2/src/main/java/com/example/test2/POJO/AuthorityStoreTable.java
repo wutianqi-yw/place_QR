@@ -13,7 +13,7 @@ public class AuthorityStoreTable {
     private String name;
     private String url;
     private String icon;
-    private AuthorityStoreTable[] children;
+    private String children;
     private Integer type;
 
 }

@@ -1,7 +1,7 @@
 package com.example.test2.Mapper;
 
 import com.example.test2.Mapper.Primary.AuthorityStoreTableMapper;
-import com.example.test2.POJO.AuthorityStoreTableStore;
+import com.example.test2.POJO.AuthorityStoreTable;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +10,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class AuthorityStoreTableMapperTests {
+public class AuthorityMapperTests {
 
     @Autowired
     private AuthorityStoreTableMapper authorityStoreTableMapper;
 
     @Test
     public void insertAuthorityStoreTable(){
-        AuthorityStoreTableStore authorityStoreTableStore=new AuthorityStoreTableStore();
-        authorityStoreTableStore.setName("hh");
-        authorityStoreTableStore.setUrl("123");
-        authorityStoreTableStore.setIcon("1");
-        authorityStoreTableStore.setChildren(null);
-        System.out.println(authorityStoreTableMapper.insertAuthorityStoreTable(authorityStoreTableStore));
+        AuthorityStoreTable authorityStoreTable =new AuthorityStoreTable();
+        authorityStoreTable.setName("hh");
+        authorityStoreTable.setUrl("123");
+        authorityStoreTable.setIcon("1");
+        authorityStoreTable.setChildren(null);
+        System.out.println(authorityStoreTableMapper.insertAuthorityStoreTable(authorityStoreTable));
     }
 
     @Test

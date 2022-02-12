@@ -2,7 +2,7 @@ package com.example.test2.Service;
 
 import com.example.test2.POJO.AdminGroup;
 import com.example.test2.POJO.AdminGroupStore;
-import com.example.test2.POJO.AuthorityStoreTable;
+import com.example.test2.POJO.Authority;
 import com.example.test2.Service.PrimaryService.AdminGroupService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,18 +29,18 @@ public class AdminGroupServiceTests {
     @Test
     public void resultMenu(){
         AdminGroup adminGroup=adminGroupService.resultMenu(2L);
-        AuthorityStoreTable[] authorityStoreTable=adminGroup.getAuthority_collection();
-        for(int i=0;i<authorityStoreTable.length;i++){
-            dfs(authorityStoreTable[i]);
+        Authority[] authority =adminGroup.getAuthority_collection();
+        for(int i = 0; i< authority.length; i++){
+            dfs(authority[i]);
         }
     }
 
-    private void dfs(AuthorityStoreTable authorityStoreTable){
-        if(authorityStoreTable==null){
+    private void dfs(Authority authority){
+        if(authority ==null){
             return;
         }
-        System.out.println(authorityStoreTable.getId());
-        AuthorityStoreTable[] children= authorityStoreTable.getChildren();
+        System.out.println(authority.getId());
+        Authority[] children= authority.getChildren();
         if(children==null){
             return;
         }

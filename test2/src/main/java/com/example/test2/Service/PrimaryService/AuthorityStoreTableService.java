@@ -1,9 +1,9 @@
 package com.example.test2.Service.PrimaryService;
 
-import com.example.test2.POJO.AuthorityStoreTableStore;
+import com.example.test2.POJO.AuthorityStoreTable;
 
 public interface AuthorityStoreTableService {
 
-    void addAuthorityStoreTable(AuthorityStoreTableStore authorityStoreTableStore);
+    void addAuthorityStoreTable(AuthorityStoreTable authorityStoreTable);
 
 }

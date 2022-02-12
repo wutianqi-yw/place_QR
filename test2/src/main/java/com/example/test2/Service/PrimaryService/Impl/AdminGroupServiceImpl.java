@@ -4,8 +4,8 @@ import com.example.test2.Mapper.Primary.AdminGroupMapper;
 import com.example.test2.Mapper.Primary.AuthorityStoreTableMapper;
 import com.example.test2.POJO.AdminGroup;
 import com.example.test2.POJO.AdminGroupStore;
+import com.example.test2.POJO.Authority;
 import com.example.test2.POJO.AuthorityStoreTable;
-import com.example.test2.POJO.AuthorityStoreTableStore;
 import com.example.test2.Service.Exception.AuthorityNotFoundException;
 import com.example.test2.Service.Exception.GroupDuplicatedException;
 import com.example.test2.Service.Exception.InsertException;
@@ -49,7 +49,7 @@ public class AdminGroupServiceImpl implements AdminGroupService {
         }
         Long[] temp=StringUtil.getArray(adminGroupStore.getAuthority_collection());
         AdminGroup adminGroup=adminGroupStorageConversion(adminGroupStore);
-        AuthorityStoreTable[] authority_collection=new AuthorityStoreTable[temp.length];
+        Authority[] authority_collection=new Authority[temp.length];
         for(int i=0;i<temp.length;i++){
             authority_collection[i]=createMenu(temp[i]);
         }
@@ -57,33 +57,33 @@ public class AdminGroupServiceImpl implements AdminGroupService {
         return adminGroup;
     }
 
-    private AuthorityStoreTable createMenu(Long id){
-        AuthorityStoreTableStore authorityStoreTableStore=authorityStoreTableMapper.selectAuthorityStoreTableById(id);
-        if(authorityStoreTableStore==null){
+    private Authority createMenu(Long id){
+        AuthorityStoreTable authorityStoreTable =authorityStoreTableMapper.selectAuthorityStoreTableById(id);
+        if(authorityStoreTable ==null){
             throw new AuthorityNotFoundException("权限数据不存在");
         }
-        AuthorityStoreTable authorityStoreTable=authorityStorageConversion(authorityStoreTableStore);
-        if(authorityStoreTableStore.getChildren()==null||authorityStoreTableStore.getChildren().equals("")){
-            authorityStoreTable.setChildren(null);
+        Authority authority =authorityStorageConversion(authorityStoreTable);
+        if(authorityStoreTable.getChildren()==null|| authorityStoreTable.getChildren().equals("")){
+            authority.setChildren(null);
         }else{
-            Long[] temp=StringUtil.getArray(authorityStoreTableStore.getChildren());
-            AuthorityStoreTable[] children=new AuthorityStoreTable[temp.length];
+            Long[] temp=StringUtil.getArray(authorityStoreTable.getChildren());
+            Authority[] children=new Authority[temp.length];
             for(int i=0;i< temp.length;i++){
                 children[i]=createMenu(temp[i]);
             }
-            authorityStoreTable.setChildren(children);
+            authority.setChildren(children);
         }
-        return authorityStoreTable;
+        return authority;
     }
 
-    private AuthorityStoreTable authorityStorageConversion(AuthorityStoreTableStore authorityStoreTableStore){
-        AuthorityStoreTable authorityStoreTable=new AuthorityStoreTable();
-        authorityStoreTable.setId(authorityStoreTableStore.getId());
-        authorityStoreTable.setName(authorityStoreTableStore.getName());
-        authorityStoreTable.setUrl(authorityStoreTableStore.getUrl());
-        authorityStoreTable.setIcon(authorityStoreTableStore.getIcon());
-        authorityStoreTable.setType(authorityStoreTableStore.getType());
-        return authorityStoreTable;
+    private Authority authorityStorageConversion(AuthorityStoreTable authorityStoreTable){
+        Authority authority =new Authority();
+        authority.setId(authorityStoreTable.getId());
+        authority.setName(authorityStoreTable.getName());
+        authority.setUrl(authorityStoreTable.getUrl());
+        authority.setIcon(authorityStoreTable.getIcon());
+        authority.setType(authorityStoreTable.getType());
+        return authority;
     }
 
     private AdminGroup adminGroupStorageConversion(AdminGroupStore adminGroupStore){

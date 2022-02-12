@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorityStoreTableStore {
+public class Authority {
 
     private Long id;
     private String name;
     private String url;
     private String icon;
-    private String children;
+    private Authority[] children;
     private Integer type;
 
 }
