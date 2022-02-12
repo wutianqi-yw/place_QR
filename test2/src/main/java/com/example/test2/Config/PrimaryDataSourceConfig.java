@@ -73,6 +73,7 @@ public class PrimaryDataSourceConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath=new ArrayList<>();
         excludePath.add("/Admin/login");
+        excludePath.add("/Admin/register");
         registry.addInterceptor(new LoginInterceptor())
                 .excludePathPatterns(excludePath)
                 .addPathPatterns("/**");

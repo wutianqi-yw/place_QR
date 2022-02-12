@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.test2.Mapper.Primary.RiskReportRecordMapper">
+
+    <insert id="insertRiskReportRecord" parameterType="com.example.test2.POJO.RiskReportRecord">
+        insert into risk_report_record(apply_type,place_id,type,report_time,report_person_id,report_state,result)
+               values (#{apply_type},#{place_id},#{type},#{report_time},#{report_person_id},#{report_state},#{result})
+    </insert>
+
+    <update id="updateRiskReportRecordById" parameterType="java.lang.Long">
+        update risk_report_record set
+                apply_type=#{apply_type},place_id=#{place_id},type=#{type}
+                report_time=#{report_time},report_person_id=#{report_person_id},
+                report_state=#{report_state},result=#{result}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteRiskReportRecordById" parameterType="java.lang.Long">
+        delete from risk_report_record where id=#{id}
+    </delete>
+
+    <select id="selectRiskReportRecordById" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        select id,apply_type,place_id,type,report_time,report_person_id,report_state,result
+          from risk_report_record
+         where id=#{id}
+    </select>
+
+</mapper>
