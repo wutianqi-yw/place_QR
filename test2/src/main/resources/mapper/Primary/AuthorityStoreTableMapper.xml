@@ -7,6 +7,10 @@
                values (#{name},#{url},#{icon},#{children},#{type})
     </insert>
 
+    <delete id="deleteAuthorityStoreTableById" parameterType="java.lang.Long">
+        delete from authority_store_table
+    </delete>
+
     <select id="selectAuthorityStoreTableById" resultType="com.example.test2.POJO.AuthorityStoreTable"
             parameterType="java.lang.Long">
         select id,name,url,icon,children,type from authority_store_table where id=#{id}

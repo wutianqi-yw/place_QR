@@ -1,14 +1,10 @@
 package com.example.test2.Service.PrimaryService.Impl;
 
 import com.example.test2.Mapper.Primary.AdminGroupMapper;
+import com.example.test2.Mapper.Primary.AdminMapper;
 import com.example.test2.Mapper.Primary.AuthorityStoreTableMapper;
-import com.example.test2.POJO.AdminGroup;
-import com.example.test2.POJO.AdminGroupStore;
-import com.example.test2.POJO.Authority;
-import com.example.test2.POJO.AuthorityStoreTable;
-import com.example.test2.Service.Exception.AuthorityNotFoundException;
-import com.example.test2.Service.Exception.GroupDuplicatedException;
-import com.example.test2.Service.Exception.InsertException;
+import com.example.test2.POJO.*;
+import com.example.test2.Service.Exception.*;
 import com.example.test2.Service.PrimaryService.AdminGroupService;
 import com.example.test2.Util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +17,13 @@ public class AdminGroupServiceImpl implements AdminGroupService {
 
     private final AuthorityStoreTableMapper authorityStoreTableMapper;
 
+    private final AdminMapper adminMapper;
+
     @Autowired
-    public AdminGroupServiceImpl(AdminGroupMapper adminGroupMapper, AuthorityStoreTableMapper authorityStoreTableMapper) {
+    public AdminGroupServiceImpl(AdminGroupMapper adminGroupMapper, AuthorityStoreTableMapper authorityStoreTableMapper, AdminMapper adminMapper) {
         this.adminGroupMapper = adminGroupMapper;
         this.authorityStoreTableMapper = authorityStoreTableMapper;
+        this.adminMapper = adminMapper;
     }
 
     @Override
@@ -43,13 +42,24 @@ public class AdminGroupServiceImpl implements AdminGroupService {
 
     @Override
     public void removeAdminGroupById(Long id) {
-
+        AdminGroupStore adminGroupStore=adminGroupMapper.selectAdminGroupById(id);
+        if (adminGroupStore==null){
+            throw new GroupNotFoundException("分组数据不存在");
+        }
+        Long count=adminMapper.selectAdminCountByGroupId(id);
+        if(count>0){
+            throw new GroupIsUsedException("分组正在使用中");
+        }
+        int rows=adminGroupMapper.deleteAdminGroupById(id);
+        if(rows!=1){
+            throw new DeleteException("删除数据时未知错误");
+        }
     }
 
     public AdminGroup resultMenu(Long id){
         AdminGroupStore adminGroupStore=adminGroupMapper.selectAdminGroupById(id);
         if(adminGroupStore==null){
-            throw new GroupDuplicatedException("分组数据不存在");
+            throw new GroupNotFoundException("分组数据不存在");
         }
         Long[] temp=StringUtil.getArray(adminGroupStore.getAuthority_collection());
         AdminGroup adminGroup=adminGroupStorageConversion(adminGroupStore);
@@ -97,5 +107,20 @@ public class AdminGroupServiceImpl implements AdminGroupService {
         adminGroup.setId(adminGroupStore.getId());
         adminGroup.setAuthority_collection(null);
         return adminGroup;
+    }
+
+    @Override
+    public void changeAdminGroupById(AdminGroupStore adminGroupStore) {
+        Long[] temp=StringUtil.getArray(adminGroupStore.getAuthority_collection());
+        for(Long id:temp){
+            AuthorityStoreTable authorityStoreTable=authorityStoreTableMapper.selectAuthorityStoreTableById(id);
+            if(authorityStoreTable==null){
+                throw new AuthorityNotFoundException("权限数据不存在");
+            }
+        }
+        int rows=adminGroupMapper.updateAdminGroupById(adminGroupStore);
+        if(rows!=1){
+            throw new UpdateException("更新数据时未知异常");
+        }
     }
 }

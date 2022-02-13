@@ -10,4 +10,6 @@ public interface AdminGroupService {
     void removeAdminGroupById(Long id);
 
     AdminGroup resultMenu(Long id);
+
+    void changeAdminGroupById(AdminGroupStore adminGroupStore);
 }

@@ -9,4 +9,7 @@ public interface AuthorityStoreTableMapper {
 
     AuthorityStoreTable selectAuthorityStoreTableById(@Param("id") Long id);
 
+    int deleteAuthorityStoreTableById(@Param("id") Long id);
+
+
 }

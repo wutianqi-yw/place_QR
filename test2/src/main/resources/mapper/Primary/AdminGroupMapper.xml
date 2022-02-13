@@ -9,6 +9,13 @@
                         <if test="comment!=null">#{comment}</if>)
     </insert>
 
+    <update id="updateAdminGroupById" parameterType="com.example.test2.POJO.AdminGroupStore">
+        update admin_group set group_name=#{group_name},
+                               authority_collection=#{authority_collection},
+                               comment=#{comment}
+                           where id=#{id}
+    </update>
+
     <delete id="deleteAdminGroupById" parameterType="java.lang.Long">
         delete from admin_group where id=#{id}
     </delete>

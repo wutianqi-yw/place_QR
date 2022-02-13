@@ -48,4 +48,19 @@ public class AdminGroupServiceTests {
             dfs(children[i]);
         }
     }
+
+    @Test
+    public void changeAdminGroupById(){
+        AdminGroupStore adminGroupStore=new AdminGroupStore();
+        adminGroupStore.setId(1L);
+        adminGroupStore.setGroup_name("aaa");
+        adminGroupStore.setAuthority_collection("1,2,3,4,5,6");
+        adminGroupStore.setComment("啊哈哈哈");
+        adminGroupService.changeAdminGroupById(adminGroupStore);
+    }
+
+    @Test
+    public void removeAdminGroupById(){
+        adminGroupService.removeAdminGroupById(2L);
+    }
 }

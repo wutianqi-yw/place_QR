@@ -14,4 +14,8 @@ public interface AdminMapper {
     Admin selectAdminById(@Param("id") Long id);
 
     int deleteAdminById(@Param("id") Long id);
+
+    int updateGroupIdById(@Param("id") Long id,@Param("group_id") Long group_id);
+
+    Long selectAdminCountByGroupId(@Param("group_id") Long group_id);
 }

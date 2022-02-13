@@ -12,6 +12,10 @@
         update admin set password=<if test="password!=null">#{password}</if> where id=#{id}
     </update>
 
+    <update id="updateGroupIdById">
+        update admin set group_id=#{group_id} where id=#{id}
+    </update>
+
     <delete id="deleteAdminById" parameterType="java.lang.Long">
         delete from admin where id=#{id}
     </delete>
@@ -25,6 +29,10 @@
 
     <select id="selectAdminById" resultType="com.example.test2.POJO.Admin" parameterType="java.lang.Long">
         select id,username,password,group_id from admin where id=#{id}
+    </select>
+
+    <select id="selectAdminCountByGroupId" resultType="java.lang.Long" parameterType="java.lang.Long">
+        select count(*) from admin where group_id=#{group_id}
     </select>
 
 </mapper>

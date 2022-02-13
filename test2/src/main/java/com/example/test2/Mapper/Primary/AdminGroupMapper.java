@@ -11,4 +11,6 @@ public interface AdminGroupMapper {
 
     AdminGroupStore selectAdminGroupById(@Param("id") Long id);
 
+    int updateAdminGroupById(AdminGroupStore adminGroupStore);
+
 }

@@ -38,4 +38,9 @@ public class AdminServiceTests {
     public void removeAdminById(){
         adminService.removeAdminById(3L);
     }
+
+    @Test
+    public void changeGroupIdById(){
+        adminService.changeGroupIdById(1L,10L);
+    }
 }

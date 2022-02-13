@@ -1,5 +1,6 @@
-package com.example.test2.Controllers;
+package com.example.test2.Controllers.PrimayController;
 
+import com.example.test2.Controllers.BaseController;
 import com.example.test2.Controllers.Exception.ParameIsNullException;
 import com.example.test2.POJO.Admin;
 import com.example.test2.Service.PrimaryService.AdminService;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/admin")
-public class AdminController extends BaseController{
+public class AdminController extends BaseController {
 
     private final AdminService adminService;
 
@@ -64,6 +65,18 @@ public class AdminController extends BaseController{
     public JsonResult<Void> removeAdminById(HttpSession session){
         Long id= (Long) session.getAttribute("id");
         adminService.removeAdminById(id);
+        return new JsonResult<>(OK);
+    }
+
+    @PostMapping(value = "/changeGroupIdById")
+    public JsonResult<Void> changeGroupIdById(Long id,Long group_id){
+        List params=new ArrayList();
+        params.add(id);
+        params.add(group_id);
+        if(!ParameterUtil.parameterCheck(params)){
+            throw new ParameIsNullException("指定参数不能为空");
+        }
+        adminService.changeGroupIdById(id, group_id);
         return new JsonResult<>(OK);
     }
 }

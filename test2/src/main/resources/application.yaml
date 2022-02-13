@@ -33,3 +33,7 @@ spring:
     port: 6300
     host: 120.79.189.55
     password: zxc,./123
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

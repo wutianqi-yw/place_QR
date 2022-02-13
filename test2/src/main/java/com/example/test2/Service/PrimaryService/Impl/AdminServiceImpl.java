@@ -30,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
         }
         AdminGroupStore adminGroup =adminGroupMapper.selectAdminGroupById(admin.getGroup_id());
         if(adminGroup==null){
-            throw new GroupDuplicatedException("分组数据不存在");
+            throw new GroupNotFoundException("分组数据不存在");
         }
         Integer rows=adminMapper.insertAdmin(admin);
         if(rows!=1){
@@ -74,6 +74,22 @@ public class AdminServiceImpl implements AdminService {
         int rows=adminMapper.deleteAdminById(id);
         if(rows!=1){
             throw new DeleteException("删除未知异常");
+        }
+    }
+
+    @Override
+    public void changeGroupIdById(Long id, Long group_id) {
+        Admin admin=adminMapper.selectAdminById(id);
+        if(admin==null){
+            throw new UserNotFoundException("用户数据不存在");
+        }
+        AdminGroupStore adminGroupStore=adminGroupMapper.selectAdminGroupById(group_id);
+        if(adminGroupStore==null){
+            throw new GroupNotFoundException("分组数据不存在");
+        }
+        int rows=adminMapper.updateGroupIdById(id,group_id);
+        if(rows!=1){
+            throw new UpdateException("更新数据异常错误");
         }
     }
 }
