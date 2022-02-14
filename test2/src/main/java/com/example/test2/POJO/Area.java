@@ -35,7 +35,7 @@ public class Area {
                 ", name='" + name + '\'' +
                 ", risk_level=" + risk_level +
                 ", area_level=" + area_level +
-                ", children=" + Arrays.toString(children) +
+                ", children=" + children +
                 ", father=" + father +
                 '}';
     }

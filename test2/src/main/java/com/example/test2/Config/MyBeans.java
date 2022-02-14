@@ -1,5 +1,6 @@
 package com.example.test2.Config;
 
+import com.example.test2.Config.AreaMulTreeStore.AreaMulTree;
 import com.example.test2.POJO.Area;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -69,13 +70,10 @@ public class MyBeans {
     }
 
     @Bean("myArea")
-    public Area area(){
-
-        Area a1 = Area.builder().id(16L).area_level(1).father(null).risk_level(1).children(null).name("a1").build();
-        Area a2 = Area.builder().id(17L).area_level(2).father(a1).risk_level(1).children(null).name("a2").build();
-        Area a3 = Area.builder().id(18L).area_level(3).father(a1).risk_level(1).children(null).name("a3").build();
-        a1.setChildren(new Area[]{a2,a3});
-        return a1;
+    public Area[] area() {
+        AreaMulTree areaMulTree = new AreaMulTree();
+        Area[] areas = areaMulTree.getDefaultCityStoreTree();
+        return areas;
     }
 
 }
